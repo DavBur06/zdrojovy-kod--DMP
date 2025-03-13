@@ -80,6 +80,7 @@ void loop() {
         Serial.print("vzdalenost (cm): ");
         Serial.println(vzdalenost);
 
+//ze základní pozice do podprogramu dopredu
   for (int pos = 90; pos >= 60; pos -= 1)
   {
    LChodidlo.write(pos);
@@ -99,22 +100,24 @@ while (vzdalenost > 10)
   dopredu();
 }
 
-for (int pos = 120; pos >= 90; pos -= 1) 
+//z podprogramu dopredu do zakladni pozice
+for (int pos = 60; pos <= 90; pos += 1) 
+    {
+    LChodidlo.write(pos);
+    RChodidlo.write(pos);             
+    delay(Rychlost);  
+    }
+
+    for (int pos = 120; pos >= 90; pos -= 1) 
     {
     LNoha.write(pos);
     RNoha.write(pos);            
     delay(Rychlost);  
     }
 
-    for (int pos = 130; pos >= 90; pos -= 1) 
-  {
-   LChodidlo.write(pos);
-   RChodidlo.write(pos);             
-   delay(Rychlost);  
-   }
   delay(500);
 
-  randNumber = random(1);
+  randNumber = random(2);
   Serial.print("nahodne cislo je: ");
   Serial.println(randNumber);
 
@@ -123,23 +126,86 @@ for (int pos = 120; pos >= 90; pos -= 1)
     case 0:
       Serial.print("otocka doleva");
 
+      //ze zakladni pozice do podprogramu doleva
+      for (int pos = 90; pos >= 60; pos -= 1) 
+      {
+        LChodidlo.write(pos);
+        RChodidlo.write(pos);             
+        delay(Rychlost);  
+      }
+
+      for (int pos = 90; pos <= 110; pos += 1) 
+      {
+        RNoha.write(pos);            
+        delay(Rychlost);  
+      }
+
       for(int i = 0; i < 5; i += 1)
       {
         doleva();
       }
+
+      //z podprogramu doleva do zakladni pozice
+      for (int pos = 60; pos <= 90; pos += 1) 
+      {
+        LChodidlo.write(pos);
+        RChodidlo.write(pos);          
+        delay(Rychlost);  
+      }
+
+      for (int pos = 110; pos >= 90; pos -= 1) 
+      {
+        RNoha.write(pos);             
+        delay(Rychlost);  
+      }
+
+      delay(500);
+
       break;
+
     case 1:
       Serial.print("otocka doprava");
+
+      //ze zakladni pozice do podprogramu doprava
+      for (int pos = 90; pos <= 130; pos += 1) 
+      {
+        LChodidlo.write(pos);
+        RChodidlo.write(pos);             
+        delay(Rychlost);  
+      }
+
+      for (int pos = 90; pos <= 70; pos += 1) 
+      {
+        LNoha.write(pos);            
+        delay(Rychlost);  
+      }
 
       for(int i = 0; i < 5; i += 1)
       {
         doprava();
       }
+
+      //z podprogramu doprava do zakladni pozice
+      for (int pos = 130; pos >= 90; pos -= 1) 
+      {
+        LChodidlo.write(pos);
+        RChodidlo.write(pos);          
+        delay(Rychlost);  
+      }
+
+      for (int pos = 70; pos <= 90; pos += 1) 
+      {
+        LNoha.write(pos);             
+        delay(Rychlost);  
+      }
+
+      delay(500);
+      
       break;
   }
 }
 
-/******************************************************/
+/****************PODPROGRAMY****************/
 
 void dopredu() {
 
@@ -188,57 +254,57 @@ void dopredu() {
 }
 
 void doleva() {
- for (int pos = 115; pos >= 45; pos -= 1) 
-    {
-    LChodidlo.write(pos);
-    RChodidlo.write(pos);             
-    delay(Rychlost);  
-    }
-
- for (int pos = 75; pos <= 95; pos += 1) 
-    {
-    RNoha.write(pos);            
-    delay(Rychlost);  
-    }
-
- for (int pos = 45; pos <= 115; pos += 1) 
+  for (int pos = 60; pos <= 130; pos += 1) 
     {
     LChodidlo.write(pos);
     RChodidlo.write(pos);          
     delay(Rychlost);  
     }
 
-     for (int pos = 95; pos >= 75; pos -= 1) 
+     for (int pos = 110; pos >= 80; pos -= 1) 
     {
     RNoha.write(pos);             
+    delay(Rychlost);  
+    }
+
+     for (int pos = 130; pos >= 60; pos -= 1) 
+    {
+    LChodidlo.write(pos);
+    RChodidlo.write(pos);          
+    delay(Rychlost);  
+    }
+
+  for (int pos = 80; pos <= 110; pos += 1) 
+    {
+    RNoha.write(pos);            
     delay(Rychlost);  
     }
 }
 
 void doprava() {
-  for (int pos = 115; pos >= 65; pos -= 1) 
-    {
-    LChodidlo.write(pos);
-    RChodidlo.write(pos);             
-    delay(Rychlost);  
-    }
-
- for (int pos = 65; pos <= 105; pos += 1) 
-    {
-    LNoha.write(pos);            
-    delay(Rychlost);  
-    }
-
- for (int pos = 65; pos <= 115; pos += 1) 
+    for (int pos = 130; pos >= 60; pos -= 1) 
     {
     LChodidlo.write(pos);
     RChodidlo.write(pos);          
     delay(Rychlost);  
     }
 
-     for (int pos = 115; pos >= 65; pos -= 1) 
+    for (int pos = 70; pos <= 100; pos += 1) 
     {
     LNoha.write(pos);             
+    delay(Rychlost);  
+    }
+
+    for(int pos = 60; pos <= 130; pos += 1)  
+    {
+    LChodidlo.write(pos);
+    RChodidlo.write(pos);          
+    delay(Rychlost);  
+    }
+
+    for (int pos = 100; pos >= 70; pos -= 1) 
+    {
+    LNoha.write(pos);            
     delay(Rychlost);  
     }
 }
